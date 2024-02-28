@@ -1,2 +1,29 @@
-package com.jbcomputers.flashcard.entities;public class Flashcard {
+package com.jbcomputers.flashcard.entities;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
+import java.time.LocalDateTime;
+
+@Data
+@Entity(name="flashcards")
+public class Flashcard {
+
+    @Id
+    private Long id;
+
+    @Column(name="set_id")
+    private Long setId;
+
+    @Column(name="front_text")
+    private String frontText;
+
+    @Column(name="back_text")
+    private String backText;
+
+    @Column(name="update_date")
+    @UpdateTimestamp
+    private LocalDateTime updateDate;
 }
