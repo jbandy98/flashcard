@@ -1,1 +1,90 @@
-<p>admin works!</p>
+
+    <div class="short-card">
+    <mat-card>
+        <mat-card-header>
+        <mat-card-title>Create new Flashcard Set</mat-card-title>
+        <mat-divider></mat-divider>
+        </mat-card-header>
+        <mat-card-content>
+            <form>
+                <mat-form-field>
+                <mat-label>Flashcard Set Name</mat-label>
+                <input matInput placeholder="Flashcard set" [(ngModel)]="setNameInput" name="setName" required>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="createNewSet()">Create/Update Set</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>List of Flashcard Sets</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <table mat-table [dataSource]="flashcardSetData" class="mat-elevation-z8">
+                <ng-container matColumnDef="setName">
+                    <th mat-header-cell *matHeaderCellDef> Set Name </th>
+                    <td mat-cell class="hover-hand" *matCellDef="let set" (click)="loadFlashcardSet(set)"> {{set.setName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let set"> <mat-icon class="hover-hand" (click)="deleteSet(set.id)">delete</mat-icon> </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>
+<div *ngIf="showFlashcards" class="short-card">
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Create new Flashcard</mat-card-title>
+        <mat-card-subtitle>Flashcard Set: {{selectedSet.setName}}</mat-card-subtitle>
+        <mat-divider></mat-divider>
+        </mat-card-header>
+        <mat-card-content>
+            <form>
+                <mat-form-field>
+                    <mat-label>Flashcard Front Text</mat-label>
+                    <textarea matInput cdkTextareaAutosize="true"
+                    cdkAutosizeMinRows="4"
+                    cdkAutosizeMaxRows="8" [(ngModel)]="frontText" name="frontText" required></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Flashcard Back Text</mat-label>
+                    <textarea matInput cdkTextareaAutosize="true"
+                    cdkAutosizeMinRows="4"
+                    cdkAutosizeMaxRows="8" [(ngModel)]="backText" name="backText" required></textarea>
+
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="createNewFlashcard()">Create/Update Flashcard</button>
+        </mat-card-actions>
+</mat-card>
+</div>
+<div *ngIf="showFlashcards">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>List of Flashcards</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <table mat-table [dataSource]="flashcards" class="mat-elevation-z8">
+                <ng-container matColumnDef="frontText">
+                    <th mat-header-cell *matHeaderCellDef> Front Text </th>
+                    <td mat-cell *matCellDef="let card"> {{card.frontText}} </td>
+                </ng-container>
+                <ng-container matColumnDef="backText">
+                    <th mat-header-cell *matHeaderCellDef> Back Text </th>
+                    <td mat-cell *matCellDef="let card"> {{card.backText}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>

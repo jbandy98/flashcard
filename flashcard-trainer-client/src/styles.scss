@@ -1,19 +1,54 @@
 @import "@angular/material/theming";
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 
 @include mat-core();
 
-$my-app-primary: mat-palette($mat-indigo);
-$my-app-accent: mat-palette($mat-pink, A200, A100, A400);
-$my-app-warn: mat-palette($mat-red);
+// $my-app-primary: mat-palette($mat-indigo);
+// $my-app-accent: mat-palette($mat-pink, A200, A100, A400);
+// $my-app-warn: mat-palette($mat-red);
 
-$my-app-theme: mat-light-theme(
-    (
-        color: (
-            primary: $my-app-primary,
-            accent: $my-app-accent,
-            warn: $my-app-warn,
-        ),
-    )
-);
+// $my-app-theme: mat-light-theme(
+//     (
+//         color: (
+//             primary: $my-app-primary,
+//             accent: $my-app-accent,
+//             warn: $my-app-warn,
+//         ),
+//     )
+// );
 
-@include angular-material-theme($my-app-theme);
+// @include angular-material-theme($my-app-theme);
+
+@import 'ngx-toastr/toastr';
+
+.short-card {
+    max-width: 300px;
+    float: left;
+}
+
+.hover-hand:hover {
+    cursor: pointer;
+}
+
+html {
+    background-color: #424242;
+}
+
+mat-card-header {
+    mat-card-title {
+        font-weight: bold !important;
+        color: #c2185b !important;
+    }
+}
+
+mat-form-field {
+    height: 80px;
+    margin-top: 5px;
+    margin-left: 0.5rem;
+    width: calc(100% - 0.5rem);
+}
+
+mat-card {
+    align-items: center;
+}
+

@@ -9,15 +9,11 @@ import java.util.List;
 @Service
 public interface FlashcardService {
 
-    public FlashcardSet createNewFlashcardSet(FlashcardSet flashcardSet);
-
-    public FlashcardSet updateFlashcardSet(FlashcardSet flashcardSet);
+    public FlashcardSet createOrUpdateFlashcardSet(FlashcardSet flashcardSet);
 
     public boolean deleteFlashcardSet(Long id);
 
-    public Flashcard createNewFlashcard(Flashcard flashcard);
-
-    public Flashcard updateFlashcard(Flashcard flashcard);
+    public Flashcard createOrUpdateFlashcard(Flashcard flashcard);
 
     public boolean deleteFlashcard(Long id);
 

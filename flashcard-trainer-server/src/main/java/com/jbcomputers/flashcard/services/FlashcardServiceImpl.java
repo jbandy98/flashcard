@@ -20,11 +20,11 @@ public class FlashcardServiceImpl implements FlashcardService {
     }
 
     @Override
-    public FlashcardSet createNewFlashcardSet(FlashcardSet flashcardSet) {
+    public FlashcardSet createOrUpdateFlashcardSet(FlashcardSet flashcardSet) {
         FlashcardSet newSet;
         if (flashcardSet.getSetName().isEmpty()) {
             throw new FlashcardException("Flashcard Set Name cannot be null!");
-        } else if (flashcardSetRepository.findById(flashcardSet.getId()).isPresent()) {
+        } else if (flashcardSet.getId() != null && flashcardSetRepository.findById(flashcardSet.getId()).isPresent()) {
             throw new FlashcardException("Flashcard Set id already exists!");
         }
         else {
@@ -34,20 +34,11 @@ public class FlashcardServiceImpl implements FlashcardService {
     }
 
     @Override
-    public FlashcardSet updateFlashcardSet(FlashcardSet flashcardSet) {
-        FlashcardSet updatedSet;
-        if(flashcardSetRepository.findById(flashcardSet.getId()).isEmpty()) {
-            throw new FlashcardException("Flashcard Set was not found!");
-        } else {
-            updatedSet = flashcardSetRepository.save(flashcardSet);
-        }
-        return updatedSet;
-    }
-
-    @Override
     public boolean deleteFlashcardSet(Long id) {
         if(flashcardSetRepository.findById(id).isEmpty()) {
             throw new FlashcardException("Flashcard Set was not found!");
+        } else if (!flashcardRepository.findAllBySetId(id).isEmpty()) {
+            throw new FlashcardException("Cannot delete a set with cards, please delete them first!");
         } else {
             flashcardSetRepository.deleteById(id);
         }
@@ -55,7 +46,7 @@ public class FlashcardServiceImpl implements FlashcardService {
     }
 
     @Override
-    public Flashcard createNewFlashcard(Flashcard flashcard) {
+    public Flashcard createOrUpdateFlashcard(Flashcard flashcard) {
         Flashcard newFlashcard;
         if (flashcard.getSetId() <= 0 || flashcard.getFrontText().isEmpty() || flashcard.getBackText().isEmpty()) {
             throw new FlashcardException("Either the set id or front or back text was missing from the flashcard!");
@@ -66,19 +57,6 @@ public class FlashcardServiceImpl implements FlashcardService {
             newFlashcard = flashcardRepository.save(flashcard);
         }
         return newFlashcard;
-    }
-
-    @Override
-    public Flashcard updateFlashcard(Flashcard flashcard) {
-        Flashcard updatedFlashcard;
-        if (flashcardRepository.findById(flashcard.getId()).isEmpty()) {
-            throw new FlashcardException("Flashcard id not found!");
-        } else if (flashcard.getSetId() <= 0 || flashcard.getFrontText().isEmpty() || flashcard.getBackText().isEmpty()) {
-            throw new FlashcardException("Either the set id or front or back text was missing from the flashcard!");
-        } else {
-            updatedFlashcard = flashcardRepository.save(flashcard);
-        }
-        return updatedFlashcard;
     }
 
     @Override
