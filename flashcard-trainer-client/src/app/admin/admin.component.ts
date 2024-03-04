@@ -92,6 +92,8 @@ export class AdminComponent implements OnInit {
       this.flashcardResponse = data;
       this.alertService.success("New flashcard created!");
       this.pullFlashcardsForSet(this.selectedSet.id);
+      this.frontText = '';
+      this.backText = '';
     });
   }
 
