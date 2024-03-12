@@ -1,0 +1,22 @@
+<mat-card>
+    <mat-card-header>
+        Viewing Card {{ currentIndex + 1 }} of {{ flashcards.length }}
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngIf="front">
+            {{ showCardFront() }}
+        </div>
+        <div *ngIf="!front">
+            {{ showCardBack() }}
+        </div>
+    </mat-card-content>
+    <mat-card-footer>
+        <div class="bottom-bar">
+            <button mat-raised-button color="primary" (click)="goBack()">Previous Card</button>
+            <button mat-raised-button color="primary" (click)="showFront()">Front</button>
+            <button mat-raised-button color="primary" (click)="showBack()">Back</button>
+            <button mat-raised-button color="primary" (click)="goForward()">Next Card</button>
+        </div>
+    </mat-card-footer>
+
+</mat-card>

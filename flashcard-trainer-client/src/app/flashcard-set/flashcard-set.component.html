@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="margin5">
 <mat-card-header>
 <mat-card-title>Flashcard Sets</mat-card-title>
 </mat-card-header>
@@ -13,15 +13,20 @@
       <th mat-header-cell *matHeaderCellDef> Set Id </th>
       <td mat-cell *matCellDef="let set"> {{set.id}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="cardCount">
+      <th mat-header-cell *matHeaderCellDef> Number of Cards </th>
+      <td mat-cell *matCellDef="let set"> {{set.flashcards.length}} </td>
+    </ng-container>
   
     <ng-container matColumnDef="updateDate">
       <th mat-header-cell *matHeaderCellDef> Last Updated </th>
       <td mat-cell *matCellDef="let set"> {{set.updateDate}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef> Delete </th>
-        <td mat-cell *matCellDef="let set"> <mat-icon class="hover-hand" (click)="deleteSet(set.id)">delete</mat-icon> </td>
+    <ng-container matColumnDef="studySet">
+      <th mat-header-cell *matHeaderCellDef> Study Set </th>
+      <td mat-cell *matCellDef="let set"> <button mat-raised-button color="primary" routerLink="/study/{{set.id}}">Study</button> </td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

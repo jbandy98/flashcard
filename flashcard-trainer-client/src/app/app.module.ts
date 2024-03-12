@@ -10,6 +10,7 @@ import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { StudyComponent } from './study/study.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ToastrModule } from 'ngx-toastr';
     FlashcardSetComponent,
     AdminComponent,
     HomeComponent,
-    NavBarComponent
+    NavBarComponent,
+    StudyComponent
   ],
   imports: [
     BrowserModule,

@@ -58,6 +58,12 @@ public class FlashcardController {
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<Boolean> deleteFlashcard(@RequestBody Flashcard flashcard) {
+        boolean result = flashcardService.deleteFlashcard(flashcard.getId());
+        return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+    }
+
     @GetMapping("/trigger/mergesort")
     public void triggerMergeSort() {
         mergeSort.run();

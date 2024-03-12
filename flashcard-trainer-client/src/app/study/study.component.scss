@@ -1,0 +1,22 @@
+@import "../../styles.scss";
+
+mat-card-content {
+    padding: 20px;
+    margin: 20px;
+    width: 400px;
+    height: 200px;
+    background-color: $accent-light;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+button {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+mat-card-header {
+    font-size: larger;
+    font-weight: bold;
+    color: $secondary;
+}

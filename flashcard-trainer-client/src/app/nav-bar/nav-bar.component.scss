@@ -1,16 +1,19 @@
+@import "../../styles.scss";
+
 .logo {
-    font-size: x-large;
+    font-size: xx-large;
     font-weight: bold;
-    vertical-align: middle;
 }
 
 .navbar {
+    margin-top: 20px;
+    margin-bottom: 20px;
     height: 50px; 
     align-items: center;
+    background-color: $accent-background !important;
 }
 
 .navbar-item {
-    display: inline-block;
     margin-left: 50px;
-    vertical-align: middle;
+    display: inline-flex;
 }

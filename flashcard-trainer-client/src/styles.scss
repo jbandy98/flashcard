@@ -18,6 +18,12 @@
 // );
 
 // @include angular-material-theme($my-app-theme);
+$primary: #c2185b;
+$secondary: #a8822b;
+$background: #424242;
+$accent-background: #313131;
+$accent-dark: #212121;
+$accent-light: #cccccc;
 
 @import 'ngx-toastr/toastr';
 
@@ -31,13 +37,23 @@
 }
 
 html {
-    background-color: #424242;
+    background-color: $background;
+    font-family: 'Arial' !important;
 }
-
-mat-card-header {
-    mat-card-title {
-        font-weight: bold !important;
-        color: #c2185b !important;
+mat-card {
+    background-color: $accent-background !important;
+    mat-card-header {
+        
+        mat-card-title {
+            font-weight: bold !important;
+            color: $primary !important;
+            font-size: xx-large !important;
+            margin-left: 20px !important;
+            margin-right: 20px !important;
+            margin-bottom: 20px !important;
+            vertical-align: middle !important;
+            
+        }
     }
 }
 
@@ -50,5 +66,20 @@ mat-form-field {
 
 mat-card {
     align-items: center;
+    margin: 10px;
+}
+
+.title-info {
+    color: $secondary;
+    text-align: center;
+    margin: 5%;
+}
+
+.margin10 {
+    margin: 10%;
+}
+
+.margin5 {
+    margin: 5%;
 }
 

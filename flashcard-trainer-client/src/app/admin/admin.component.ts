@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import { Component, OnInit } from '@angular/core';
 import { FlashcardService } from '../services/src/app/flashcardservice.service';
 import { FlashcardSet } from '../models/flashcard-set';
 import { ToastrService } from 'ngx-toastr';
@@ -15,24 +14,22 @@ export class AdminComponent implements OnInit {
   flashcardSetResponse: FlashcardSet;
 
   displayedColumns1: string[] = ['setName','actions'];
-  displayedColumns2: string[] = ['frontText','backText'];
+  displayedColumns2: string[] = ['frontText','backText', 'deleteFlashcard'];
   flashcardSetData: Array<FlashcardSet>;
+  flashcards: Array<FlashCard>;
 
   selectedSet: FlashcardSet;
-  flashcards: Array<FlashCard>;
   flashcardResponse: FlashCard;
   showFlashcards: boolean = false;
   frontText: string = '';
   backText: string = '';
 
-  // @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
   constructor(private flashcardService: FlashcardService,
     private alertService: ToastrService) {
     this.flashcardSetResponse = new FlashcardSet();
     this.flashcardSetData = new Array<FlashcardSet>();
-    this.selectedSet = new FlashcardSet();
     this.flashcards = new Array<FlashCard>();
+    this.selectedSet = new FlashcardSet();
     this.flashcardResponse = new FlashCard();
   }
 
@@ -43,6 +40,11 @@ export class AdminComponent implements OnInit {
   pullSetData() {
     this.flashcardService.getFlashcardSets().subscribe((data) => {
       this.flashcardSetData = data;
+      if (this.selectedSet.id > 0) {
+        const updatedSelectedSet = this.flashcardSetData.filter(set => set.id == this.selectedSet.id);
+        this.flashcards = updatedSelectedSet[0].flashcards;
+        console.log('Flashcards retrieved for set id: ' + this.selectedSet.id);
+      }
       console.log('Flashcard Set Data retrieved.');
     });
   }
@@ -71,16 +73,10 @@ export class AdminComponent implements OnInit {
   }
 
   loadFlashcardSet(flashcardSet: FlashcardSet) {
+    this.pullSetData();
     this.selectedSet = flashcardSet;
-    this.pullFlashcardsForSet(flashcardSet.id);
     this.showFlashcards = true;
-  }
-
-  pullFlashcardsForSet(setId: number) {
-    this.flashcardService.getFlashcardsForSet(setId).subscribe((data) => {
-      this.flashcards = data;
-      console.log('flashcard data pulled.');
-    });
+    
   }
 
   createNewFlashcard() {
@@ -91,9 +87,21 @@ export class AdminComponent implements OnInit {
     this.flashcardService.createOrUpdateFlashcard(flashcard).subscribe((data) => {
       this.flashcardResponse = data;
       this.alertService.success("New flashcard created!");
-      this.pullFlashcardsForSet(this.selectedSet.id);
+      this.loadFlashcardSet(this.selectedSet);
       this.frontText = '';
       this.backText = '';
+    });
+  }
+
+  deleteFlashcard(card: FlashCard) {
+    this.flashcardService.deleteFlashcard(card).subscribe((response) => {
+      if (response == true) {
+        this.alertService.success("Flashcard successfully deleted.");
+      }
+      this.loadFlashcardSet(this.selectedSet);
+    },
+      error => {
+        this.alertService.error("Flashcard deletion failed!");
     });
   }
 

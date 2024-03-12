@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./flashcard-set.component.scss']
 })
 export class FlashcardSetComponent implements OnInit{
-  displayedColumns: string[] = ['setId', 'setName', 'updateDate', 'delete'];
+  displayedColumns: string[] = ['setId', 'setName', 'cardCount', 'updateDate', 'studySet'];
   flashcardSetData: Array<FlashcardSet>;
 
   constructor(private flashcardService: FlashcardService,
@@ -28,14 +28,7 @@ export class FlashcardSetComponent implements OnInit{
     });
   }
 
-  deleteSet(id: number) {
-    this.flashcardService.deleteFlashcardSet(id).subscribe((response) => {
-      if (response == true) {
-        this.alertService.success("Flashcard Set successfully deleted.");
-      } else {
-        this.alertService.warning("Error when trying to delete flashcard set.");
-      }
-      this.pullSetData();
-    });
+  studySet(set: FlashcardSet) {
+
   }
 }

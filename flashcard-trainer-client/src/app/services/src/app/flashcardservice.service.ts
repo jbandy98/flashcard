@@ -32,4 +32,8 @@ export class FlashcardService {
   getFlashcardsForSet(setId: number): Observable<Array<FlashCard>> {
     return this.httpClient.get<Array<FlashCard>>(this.serverUrl + '/flashcard/sets/' + setId);
   }
+
+  deleteFlashcard(flashcard: FlashCard): Observable<boolean> {
+    return this.httpClient.post<boolean>(this.serverUrl + '/flashcard/delete', flashcard);
+  }
 }
